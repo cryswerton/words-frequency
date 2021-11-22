@@ -11,7 +11,8 @@ public class Mais {
 	public static void main(String[] args) throws IOException {
 
 		String filePath;
-		filePath = "C:\\Users\\crysw\\Documents\\notes2.txt";
+		filePath = "C:\\Users\\crysw\\Documents\\bm-subs\\bvm-subs.srt";
+		//filePath = "C:\\Users\\crysw\\Documents\\notes2.txt";
 		ArrayList<Word> words;
 		
 		File file = new File(filePath);
@@ -28,10 +29,12 @@ public class Mais {
 		words = updateWordsFrequency(words);
 		sortWords(true, words);
 		
+		printWords(words);
 		
-		for(Word word: words) {
-			System.out.printf("%s; frequency: %d\n", word.getName(), word.getFrequency());
-		}
+//		for(Word word: words) {
+//			System.out.printf("%s; frequency: %d\n", word.getName(), word.getFrequency());
+//		}
+		
 		
 	}
 	
@@ -83,6 +86,22 @@ public class Mais {
 			words.sort(Comparator.comparing(Word::getFrequency).reversed());
 		}else {
 			words.sort(Comparator.comparing(Word::getFrequency));
+		}
+	}
+	
+	static void printWords(ArrayList<Word> words) {
+		ArrayList<Word> uniqueWords = new ArrayList<Word>();
+		ArrayList<String> wordsAlreadyAdded = new ArrayList<String>();
+		int currentWordFrequency = 0;
+		for(Word word: words) {
+			if(!wordsAlreadyAdded.contains(word.getName())) {
+				uniqueWords.add(word);
+				wordsAlreadyAdded.add(word.getName());				
+			}
+		}
+		
+		for(Word word: uniqueWords) {
+			System.out.printf("%s; frequency: %d\n", word.getName(), word.getFrequency());
 		}
 	}
 
