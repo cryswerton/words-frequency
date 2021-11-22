@@ -24,7 +24,7 @@ public class Mais {
 		
 //		System.out.println(fileContent);
 //		System.out.println(matchFound("\\w+", fileContent));
-		words = getWords("\\w+", fileContent);
+		words = getWords("\\b[^\\d\\W]+\\b", fileContent);
 		words = updateWordsFrequency(words);
 		sortWords(true, words);
 		
