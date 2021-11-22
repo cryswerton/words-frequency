@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,6 +26,8 @@ public class Mais {
 //		System.out.println(matchFound("\\w+", fileContent));
 		words = getWords("\\w+", fileContent);
 		words = updateWordsFrequency(words);
+		sortWords(true, words);
+		
 		
 		for(Word word: words) {
 			System.out.printf("%s; frequency: %d\n", word.getName(), word.getFrequency());
@@ -72,6 +75,15 @@ public class Mais {
 			word.setFrequency(getWordFrequency(word.getName(), words));
 		}
 		return words;
+	}
+	
+	static void sortWords(boolean option, ArrayList<Word> words) {
+		// true = descending; false ascending.
+		if(option) {
+			words.sort(Comparator.comparing(Word::getFrequency).reversed());
+		}else {
+			words.sort(Comparator.comparing(Word::getFrequency));
+		}
 	}
 
 }
