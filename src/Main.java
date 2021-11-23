@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Mais {
+public class Main {
 
 	public static void main(String[] args) throws IOException {
 
@@ -25,7 +25,9 @@ public class Mais {
 		
 //		System.out.println(fileContent);
 //		System.out.println(matchFound("\\w+", fileContent));
-		words = getWords("\\b[^\\d\\W]+\\b", fileContent);
+		
+		// Regex to get only words
+		words = getWords("[a-zA-Z]+'?|-?[a-zA-Z]+", fileContent);
 		words = updateWordsFrequency(words);
 		sortWords(true, words);
 		
@@ -35,16 +37,6 @@ public class Mais {
 //			System.out.printf("%s; frequency: %d\n", word.getName(), word.getFrequency());
 //		}
 		
-		
-	}
-	
-	static boolean matchFound(String patternText, String textContent) {
-		Pattern pattern = Pattern.compile(patternText, Pattern.CASE_INSENSITIVE);
-		//It returns a Matcher object which contains information about the search that was performed.
-	    Matcher matcher = pattern.matcher(textContent);
-	    boolean matchFound = matcher.find();
-	    //System.out.println(matcher);
-	    return matchFound;
 	}
 	
 	// Returns an array list with all the matches
