@@ -24,6 +24,20 @@ public class WordsContent {
 		this.words = new ArrayList<Word>();
 	}
 	
+	
+	
+	public ArrayList<Word> getWords() {
+		return words;
+	}
+
+
+
+	public void setWords(ArrayList<Word> words) {
+		this.words = words;
+	}
+
+
+
 	public void createListOfWords(){
 		Matcher matcher = Pattern.compile(this.regexPattern).matcher(this.fileContent);
 		String wordstr = "";
@@ -79,6 +93,19 @@ public class WordsContent {
 	}
 	
 	private ArrayList<Word> getUniqueListOfWords() {
+		ArrayList<Word> uniqueWords = new ArrayList<Word>();
+		ArrayList<String> wordsAlreadyAdded = new ArrayList<String>();
+		int currentWordFrequency = 0;
+		for(Word word: this.words) {
+			if(!wordsAlreadyAdded.contains(word.getName())) {
+				uniqueWords.add(word);
+				wordsAlreadyAdded.add(word.getName());				
+			}
+		}
+		return uniqueWords;
+	}
+	
+	public ArrayList<Word> getUniqueListOfWords(ArrayList<Word> words) {
 		ArrayList<Word> uniqueWords = new ArrayList<Word>();
 		ArrayList<String> wordsAlreadyAdded = new ArrayList<String>();
 		int currentWordFrequency = 0;

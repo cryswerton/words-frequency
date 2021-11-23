@@ -21,6 +21,8 @@ public class Main {
 		wdct.sortWords(true);
 		wdct.printListOfWords();
 		
+		MyFrame frame = new MyFrame(filePath, regexPattern);
+		
 	}
 
 }
