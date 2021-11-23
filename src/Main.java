@@ -27,7 +27,7 @@ public class Main {
 //		System.out.println(matchFound("\\w+", fileContent));
 		
 		// Regex to get only words
-		words = getWords("[a-zA-Z]+'?|-?[a-zA-Z]+", fileContent);
+		words = getWords("[a-zA-Z]+'?[a-zA-Z]+", fileContent);
 		words = updateWordsFrequency(words);
 		sortWords(true, words);
 		
