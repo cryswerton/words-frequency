@@ -11,10 +11,10 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 
 		String filePath;
-		String regexPattern = "[a-zA-Z]+'?[a-zA-Z]+";
+		String regexPattern = "([a-zA-Z]+'?[a-zA-Z]+)|[a-zA-Z]";
 		
-		//filePath = "C:\\Users\\crysw\\Documents\\bm-subs\\bvm-subs.srt";
-		filePath = "C:\\Users\\crysw\\Documents\\test.txt"; // change it to you're desired path.
+		filePath = "C:\\Users\\crysw\\Documents\\bm-subs\\bvm-subs.srt";
+		//filePath = "C:\\Users\\crysw\\Documents\\test.txt"; // change it to you're desired path.
 		WordsContent wdct = new WordsContent(filePath, regexPattern);
 		wdct.createListOfWords();
 		wdct.createWordsFrequency();

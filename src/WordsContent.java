@@ -16,7 +16,6 @@ public class WordsContent {
 	private ArrayList<Word> words;
 	
 	public WordsContent(String filePath, String regexPattern) throws FileNotFoundException {
-		super();
 		this.filePath = filePath;
 		this.file = new File(filePath);
 		this.regexPattern = regexPattern;
@@ -27,10 +26,17 @@ public class WordsContent {
 	
 	public void createListOfWords(){
 		Matcher matcher = Pattern.compile(this.regexPattern).matcher(this.fileContent);
+		String wordstr = "";
 		while (matcher.find())
 		{
+			wordstr = matcher.group(); 
+			
+			if(wordstr.equals("i")) {
+				wordstr = wordstr.toUpperCase();
+			}
+			
 			// get the group of words matched by the regex and assign each one to the ArrayList words.
-			this.words.add(new Word(matcher.group()));
+			this.words.add(new Word(wordstr));
 		}		
 	}
 	
@@ -59,7 +65,7 @@ public class WordsContent {
 		while(this.scan.hasNextLine()) {
 			this.fileContent = this.fileContent.concat(scan.nextLine() + "\n");
 		}
-		return this.fileContent;
+		return this.fileContent.toLowerCase();
 	}
 	
 	private int getWordFrequency(String word) {
