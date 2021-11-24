@@ -1,17 +1,19 @@
-import java.awt.Font;
 import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 public class WordLabel extends JLabel {
 
 	private Word word;
-	private Border border = BorderFactory.createLineBorder(Color.blue, 5);
+	private Border border = BorderFactory.createLineBorder(Color.blue, 2, true);
 	
 	public WordLabel(Word word) {
-		this.setFont(new Font("Arial", Font.PLAIN, 25));
-		this.setBorder(border);
+		this.setFont(new Font("Calibri", Font.PLAIN, 25));
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.word = word;
 		this.setText(word.getName() + "(" + word.getFrequency() + ")");
 	}
