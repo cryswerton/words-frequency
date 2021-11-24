@@ -21,7 +21,6 @@ public class MyPanel extends JPanel{
 		this.regexPattern = regex;
 		this.labels = new ArrayList<JLabel>();
 		this.addLabelsToPanel();
-		this.setPreferredSize(SCREEN_SIZE);	
 		//this.setBackground(Color.green);
 	}
 	
