@@ -50,7 +50,7 @@ public class MyFrame extends JFrame {
 					
 					JFileChooser fileChooser = new JFileChooser();
 					
-					fileChooser.setCurrentDirectory(new File("C://Users//crysw//Documents//arquivos-test")); //sets current directory
+					fileChooser.setCurrentDirectory(new File("C://Users//")); //sets current directory
 					
 					int response = fileChooser.showOpenDialog(null); //select file to open
 					//int response = fileChooser.showSaveDialog(null); //select file to save
