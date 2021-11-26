@@ -6,17 +6,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class MyFrame extends JFrame implements ActionListener {
+//Need refactoring
+
+public class MyFrame extends JFrame {
 	
 	private JButton button;
-	private MyPanel panel;
+	private MyPanel p1;
+	Scanner scan;
+	File file;
 	private static final int WIDTH = 700;
 	private static final int HEIGHT = 700;
 	private static final int HEADER_HEIGHT = HEIGHT/3;
@@ -27,12 +33,63 @@ public class MyFrame extends JFrame implements ActionListener {
 	private static final int BTN_Y = (HEADER_HEIGHT - BTN_HEIGHT) / 2;
 	private static final int BTN_X = (HEADER_WIDTH - BTN_WIDTH) / 2;
 	
-	public MyFrame(String filePath, String regex) throws FileNotFoundException {
+	public MyFrame() throws FileNotFoundException {
+		
 		button = new JButton("Select File");
-		button.addActionListener(this);
+		
+		button.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("click");
+				
+				// deletes all the p1's components
+				p1.removeAll();
+				
+				if(e.getSource()==button) {
+					
+					JFileChooser fileChooser = new JFileChooser();
+					
+					fileChooser.setCurrentDirectory(new File("C://Users//crysw//Documents//arquivos-test")); //sets current directory
+					
+					int response = fileChooser.showOpenDialog(null); //select file to open
+					//int response = fileChooser.showSaveDialog(null); //select file to save
+					
+					if(response == JFileChooser.APPROVE_OPTION) {
+						file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+						System.out.println(file.getAbsolutePath());
+					}
+				}
+				
+				try {
+					scan = new Scanner(file, "UTF-8");
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				String textContent = "";
+				
+				while(scan.hasNextLine()) {
+					textContent = textContent.concat(scan.nextLine()+"\n");
+				}
+				
+				System.out.println("text content: "+textContent);
+				
+				try {
+					p1.addLabelsToPanel(file.getAbsolutePath());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				// refreshes the p1 JPanel component
+				p1.revalidate();
+			}
+		});
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setSize(this.WIDTH, this.HEIGHT);
+	    setSize(MyFrame.WIDTH, MyFrame.HEIGHT);
 	    setLocationRelativeTo(null);
 	    setLayout(new BorderLayout());
 
@@ -43,7 +100,6 @@ public class MyFrame extends JFrame implements ActionListener {
 	    button.setBounds(BTN_X, BTN_Y, BTN_WIDTH, BTN_HEIGHT);
 	    button.setFont(new Font("Calibri", Font.PLAIN, 25));
 	    button.setFocusable(false);
-	    System.out.println(BTN_X+" "+BTN_Y);
 	    header.add(button);
 
 	    JPanel body = new JPanel();
@@ -51,15 +107,18 @@ public class MyFrame extends JFrame implements ActionListener {
 	    body.setLayout(new BorderLayout());
 	    body.setBackground(Color.black);
 	    	    
-	    MyPanel p1 = new MyPanel(filePath, regex);
+	    p1 = new MyPanel();
 //	    p1.setPreferredSize(new Dimension(400, 1000));
 	    //p1.setPreferredSize(p1.getPreferredSize());
 	    p1.setLayout(new WrapLayout());
-	    p1.setBackground(Color.green);
+	    p1.setBackground(Color.WHITE);
+	    
+	    p1.add(new WordLabel("Select a file to analyse and find out how many times the\n words appears in the text file."));
 	    
 	    
 	    JScrollPane scroll = new JScrollPane(p1);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scroll.getVerticalScrollBar().setUnitIncrement(16);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	   
 		body.add(scroll, BorderLayout.CENTER);
@@ -68,28 +127,6 @@ public class MyFrame extends JFrame implements ActionListener {
 	    add(header, BorderLayout.NORTH);
 	    add(body, BorderLayout.CENTER);
 	    setVisible(true);
-	    System.out.println(p1.getHeight());
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-
-		if (e.getSource() == button) {
-
-			JFileChooser fileChooser = new JFileChooser();
-
-			fileChooser.setCurrentDirectory(new File("C:\\Users\\Documents")); // sets current directory
-
-			int response = fileChooser.showOpenDialog(null); // select file to open
-			// int response = fileChooser.showSaveDialog(null); //select file to save
-
-			if (response == JFileChooser.APPROVE_OPTION) {
-				File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-				System.out.println(file);
-			}
-		}
-		
 	}
 
 }

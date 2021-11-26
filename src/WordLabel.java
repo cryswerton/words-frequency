@@ -1,4 +1,4 @@
-import java.awt.Color;
+import java.awt.*;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
@@ -16,5 +16,11 @@ public class WordLabel extends JLabel {
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.word = word;
 		this.setText(word.getName() + "(" + word.getFrequency() + ")");
+	}
+	
+	public WordLabel(String msg) {
+		this.setFont(new Font("Calibri", Font.PLAIN, 25));
+		this.setText(msg);
+		this.setLayout(new FlowLayout());
 	}
 }

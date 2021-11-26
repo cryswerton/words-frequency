@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+//Need refactoring
+
 public class MyPanel extends JPanel{
 	
 	static private final int WIDTH = 800;
@@ -13,34 +15,32 @@ public class MyPanel extends JPanel{
 	
 	private WordsContent  wdct;	
 	private ArrayList<JLabel> labels;
-	private String filePath;
-	private String regexPattern;
+	private String regex = "([a-zA-Z]+'?-?[a-zA-Z]+(-?[a-zA-Z])?)|[a-zA-Z]";
 	
-	public MyPanel(String filePath, String regex) throws FileNotFoundException {
-		this.filePath = filePath;
-		this.regexPattern = regex;
+	public MyPanel() throws FileNotFoundException {
 		this.labels = new ArrayList<JLabel>();
-		this.addLabelsToPanel();
+//		this.addLabelsToPanel();
 		//this.setBackground(Color.green);
 	}
-	
-	private void feedListOfWords() throws FileNotFoundException {
-		this.wdct = new WordsContent(filePath, regexPattern);
+
+	private void feedListOfWords(String filePath) throws FileNotFoundException {
+		this.wdct = new WordsContent(filePath, this.regex);
 		this.wdct.createListOfWords();
 		this.wdct.createWordsFrequency();
 		this.wdct.setWords(this.wdct.getUniqueListOfWords(this.wdct.getWords()));
 		this.wdct.sortWords(true);
 	}
 	
-	private void feedListOfLabels() throws FileNotFoundException {
-		this.feedListOfWords();
+	private void feedListOfLabels(String filePath) throws FileNotFoundException {
+		this.feedListOfWords(filePath);
 		for(Word word: wdct.getWords()) {
 			this.labels.add(new WordLabel(word));
 		}
 	}
 	
-	private void addLabelsToPanel() throws FileNotFoundException {
-		this.feedListOfLabels();
+	public void addLabelsToPanel(String filePath) throws FileNotFoundException {
+		this.labels.clear();
+		this.feedListOfLabels(filePath);
 		for(JLabel label: this.labels) {
 			this.add(label);
 		}
