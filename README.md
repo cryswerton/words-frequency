@@ -1,4 +1,4 @@
 # words-frequency
-Shows how many times the words appears in a file.
+Shows how many times the words appear in a file.
 
 ![](images/Screenshot_2.png)
