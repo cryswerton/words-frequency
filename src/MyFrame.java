@@ -74,8 +74,6 @@ public class MyFrame extends JFrame {
 					textContent = textContent.concat(scan.nextLine()+"\n");
 				}
 				
-				System.out.println("text content: "+textContent);
-				
 				try {
 					p1.addLabelsToPanel(file.getAbsolutePath());
 				} catch (FileNotFoundException e1) {
@@ -94,13 +92,19 @@ public class MyFrame extends JFrame {
 	    setLayout(new BorderLayout());
 
 	    JPanel header = new JPanel();
-	    header.setPreferredSize(new Dimension(this.WIDTH, HEADER_HEIGHT));
+	    header.setPreferredSize(new Dimension(MyFrame.WIDTH, HEADER_HEIGHT));
 	    header.setLayout(null);
 	    header.setBackground(Color.gray);
 	    button.setBounds(BTN_X, BTN_Y, BTN_WIDTH, BTN_HEIGHT);
 	    button.setFont(new Font("Calibri", Font.PLAIN, 25));
 	    button.setFocusable(false);
 	    header.add(button);
+	    
+	    JLabel lb = new JLabel("Click to find out how many times the words appear in the text file. Ex.: word(number of times.)");
+	    lb.setFont(new Font("Arial", Font.PLAIN, 14));
+	    lb.setBounds(HEADER_WIDTH/10, HEADER_HEIGHT-60, HEADER_WIDTH, 25);
+	    
+	    header.add(lb);
 
 	    JPanel body = new JPanel();
 	    body.setPreferredSize(new Dimension(this.WIDTH, BODY_HEIGHT));
@@ -112,9 +116,6 @@ public class MyFrame extends JFrame {
 	    //p1.setPreferredSize(p1.getPreferredSize());
 	    p1.setLayout(new WrapLayout());
 	    p1.setBackground(Color.WHITE);
-	    
-	    p1.add(new WordLabel("Select a file to analyse and find out how many times the\n words appears in the text file."));
-	    
 	    
 	    JScrollPane scroll = new JScrollPane(p1);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
