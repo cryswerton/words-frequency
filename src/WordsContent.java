@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -8,35 +10,28 @@ import java.util.regex.Pattern;
 
 public class WordsContent {
 	
-	private String filePath;
-	private File file;
+	private final String filePath;
+	private final File file;
 	private String fileContent = "";
-	private String regexPattern;
-	private Scanner scan;
+	private final String regexPattern;
+	private final Scanner scan;
 	private ArrayList<Word> words;
 	
-	public WordsContent(String filePath, String regexPattern) throws FileNotFoundException {
+	public WordsContent(String filePath, String regexPattern) throws IOException {
 		this.filePath = filePath;
 		this.file = new File(filePath);
 		this.regexPattern = regexPattern;
-		this.scan = new Scanner(file, "UTF-8");
+		this.scan = new Scanner(file, StandardCharsets.UTF_8);
 		this.fileContent = getFileContent();
 		this.words = new ArrayList<Word>();
 	}
-	
-	
-	
+
 	public ArrayList<Word> getWords() {
 		return words;
 	}
-
-
-
 	public void setWords(ArrayList<Word> words) {
 		this.words = words;
 	}
-
-
 
 	public void createListOfWords(){
 		Matcher matcher = Pattern.compile(this.regexPattern).matcher(this.fileContent);

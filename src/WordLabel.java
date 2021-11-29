@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 public class WordLabel extends JLabel {
 
 	private Word word;
-	private Border border = BorderFactory.createLineBorder(Color.blue, 2, true);
+	private final Border border = BorderFactory.createLineBorder(Color.blue, 2, true);
 	
 	public WordLabel(Word word) {
 		this.setFont(new Font("Calibri", Font.PLAIN, 25));
