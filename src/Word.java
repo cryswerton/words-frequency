@@ -1,4 +1,3 @@
-
 public class Word {
 	
 	private String name;
@@ -22,6 +21,4 @@ public class Word {
 	public void setFrequency(int frequency) {
 		this.frequency = frequency;
 	}
-	
-	
 }
